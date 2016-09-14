@@ -6,8 +6,9 @@ export default class Recipe {
   uuid = uuid.v4()
   @observable name = ""
   @observable type = ""
-  @observable time = ""
+  @observable time = 0
   @observable ingredients = []
+  @observable checked = false
   // Reference
   store = null
 

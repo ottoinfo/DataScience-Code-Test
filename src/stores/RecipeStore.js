@@ -1,5 +1,5 @@
-import { observable, computed, action } from "mobx"
-import AccountApi from "../services/RecipeApi"
+import { observable, computed } from "mobx"
+import API from "../services/RecipeApi"
 
 export default class RecipeStore {
   @observable pendingRequest = 0
@@ -13,5 +13,5 @@ export default class RecipeStore {
   }
 }
 
-const singleton = new AccountStore()
+const singleton = new RecipeStore()
 export default singleton
