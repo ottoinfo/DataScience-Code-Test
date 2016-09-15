@@ -1,9 +1,9 @@
 import api from "superagent"
 
-export default class GalleryApi {
-  url = "/api/recipes/"
+export default class RecipeApi {
+  url = "/api/recipes"
 
-  fetchRecipes = ()=> {
+  fetch = ()=> {
     return api.get(this.url).accept("application/json")
   }
 }

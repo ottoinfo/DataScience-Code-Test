@@ -1,8 +1,6 @@
-// Variables
-$padding: 20px;
-$radius: 7px;
-$border: 1px solid rgb(199,204,209);
-$white: #fff;
+@import "mixins";
+@import "variables";
+@import "resets";
 
 // Reset
 * {
@@ -14,16 +12,11 @@ $white: #fff;
   letter-spacing: 0;
   box-sizing: border-box;
 }
+
 // App
 #app {
-  margin: 0;
-  padding: 20px;
   letter-spacing: .7px;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 16px;
-  margin: 10px;
-  width: 900px;
-  height: 100px;
-  color: #000;
 }

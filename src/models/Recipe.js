@@ -6,7 +6,7 @@ export default class Recipe {
   uuid = uuid.v4()
   @observable name = ""
   @observable type = ""
-  @observable time = 0
+  @observable cook_time = 0
   @observable ingredients = []
   @observable checked = false
   // Reference
@@ -17,11 +17,22 @@ export default class Recipe {
     this.store = store
   }
 
+  @computed get visible() {
+    if (!this.store.ingredient) return true
+    return (this.store.ingredient && this.ingredients.indexOf(this.store.ingredient) > -1)
+  }
+
+  @computed get info() {
+    return `( ${this.cook_time} minutes | ${this.ingredients.length} ingredients )`
+  }
+
   asJSON = ()=> {
     return {
-      first_name: this.first_name,
-      last_name: this.last_name,
-      email: this.email,
+      name: this.name,
+      type: this.type,
+      cook_time: this.cook_time,
+      ingredients: this.ingredients,
+      checked: this.checked,
     }
   }
 }

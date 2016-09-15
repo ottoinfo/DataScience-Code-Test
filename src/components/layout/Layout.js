@@ -1,7 +1,9 @@
 import React from "react"
 import { observer } from "mobx-react"
+import Wrapper from "../../wrapper"
 import Header from "./Header"
 import Footer from "./Footer"
+import styles from "./style.scss"
 
 @observer
 export default class Layout extends React.Component {
@@ -13,13 +15,13 @@ export default class Layout extends React.Component {
 
   render() {
     return (
-      <div id="layout">
+      <Wrapper id="layout">
         <Header />
-        <div id="content">
+        <div id="content" className={styles.content}>
           { this.props.children }
         </div>
         <Footer />
-      </div>
+      </Wrapper>
     )
   }
 

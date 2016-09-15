@@ -1,22 +1,15 @@
 import React from "react"
 import { observer } from "mobx-react"
+import styles from "./style.scss"
 
 @observer
 export default class Footer extends React.Component {
 
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-  }
-
-  constructor(props, context) {
-    super(props, context)
-    this.router = context.router
-  }
-
   render() {
     return (
-      <footer>
-        <p>footer</p>
+      <footer className={styles.footer}>
+        <p>Author: <a href="mailto:matt@ottoinfo.com">Matthew Otto</a></p>
+        <p>Cell: <a href="tel:7147246786">714.724.6786</a></p>
       </footer>
     )
   }

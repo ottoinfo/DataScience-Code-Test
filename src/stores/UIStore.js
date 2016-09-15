@@ -1,8 +1,6 @@
 import { observable } from "mobx"
 
-class UIStore {
-  @observable visible = false
-}
+class UIStore {}
 
 const singleton = new UIStore()
 export default singleton

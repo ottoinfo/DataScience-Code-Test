@@ -1,27 +1,30 @@
 import React from "react"
 import { observer } from "mobx-react"
 import RecipeItem from "./Item"
-// import styles from "./style.scss"
+import styles from "./style.scss"
 
 @observer
-export default class RecipeList extends React.Component {
+export default class IngredientList extends React.Component {
 
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-    RecipeStore: React.PropTypes.object.isRequired,
+  static propTypes = {
+    ingredients: React.PropTypes.array,
   }
 
   constructor(props, context) {
     super(props, context)
-    this.router = context.router
-    this.RecipeStore = context.RecipeStore
+    this.ingredients = props.ingredients
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.ingredients = nextProps.ingredients
   }
 
   render() {
+    if (!this.ingredients.length) return ( <p className={styles.empty}>No Recipes Selected</p> )
     return (
-      <div className="recipes">
-        { this.RecipeStore.getItems.map(recipe =>
-          <RecipeItem key={recipe.uuid} recipe={recipe}/> 
+      <div className={styles.list}>
+        { this.ingredients.map(ingredient =>
+          <RecipeItem key={ingredient} ingredient={ingredient} /> 
         ) }
       </div>
     )

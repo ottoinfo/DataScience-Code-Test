@@ -2,25 +2,25 @@ import React from "react"
 import { observer } from "mobx-react"
 
 // Stores
-import RecipesStore from "./stores/RecipeStore"
-import UIState from "./UIState"
+import RecipeStore from "./stores/RecipeStore"
+import UIStore from "./stores/UIStore"
 
 // Setup Params on Stores
-RecipesStore.setup({ UIState })
+RecipeStore.setup({ UIStore })
 
 @observer
 export default class AppWrapper extends React.Component {
   static propTypes = { children: React.PropTypes.node }
   
   static childContextTypes = {
-    RecipesStore: React.PropTypes.object,
-    UIState: React.PropTypes.object,
+    RecipeStore: React.PropTypes.object,
+    UIStore: React.PropTypes.object,
   }
 
   getChildContext() {
     return {
-      RecipesStore,
-      UIState,
+      RecipeStore,
+      UIStore,
     }
   }
 

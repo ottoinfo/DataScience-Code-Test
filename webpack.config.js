@@ -1,7 +1,7 @@
 require("babel-polyfill")
 const webpack = require("webpack")
 const path = require("path")
-const autoprefixer = require('autoprefixer')
+const autoprefixer = require("autoprefixer")
 const validate = require("webpack-validator")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
@@ -9,17 +9,17 @@ const pkg = require("./package.json")
 
 const PATHS = {
   build: path.join(__dirname, "dist"),
-  hbs: [ path.join(__dirname, "public") ],
-  js: [ path.join(__dirname, "src") ],
-  public: "/", //"/UI-Test/" GH Pages
-  style: [ path.join(__dirname, "public", "css", "style.scss") ],
+  hbs: [path.join(__dirname, "public")],
+  js: [path.join(__dirname, "src")],
+  public: "/", // "/UI-Test/" GH Pages
+  style: [path.join(__dirname, "public", "css", "style.scss")],
 }
 
-module.exports = validate({
+module.exports = {
   cache: true,
   debug: true,
   entry: {
-    'babel-polyfill': 'babel-polyfill',
+    "babel-polyfill": "babel-polyfill",
     app: PATHS.js,
     style: PATHS.style,
     vendor: Object.keys(pkg.dependencies),
@@ -53,17 +53,28 @@ module.exports = validate({
         test: /\.scss$/,
       },
       {
+        include: PATHS.js,
+        loader: ExtractTextPlugin.extract(
+          "style",
+          "css" + "?modules&importLoaders=1&localIdentName=[folder]_[name]_[local]_[hash:base64:5]" + "!" +
+          "postcss!" +
+          "sass?outputStyle=expanded&includePaths[]=true!" +
+          "sass-resources"
+        ),
+        test: /\.scss$/,
+      },
+      {
         exclude: /node_modules/,
         include: PATHS.hbs,
         loader: "handlebars",
         test: /\.hbs$/,
-      }
+      },
     ],
   },
   plugins: [
     new ExtractTextPlugin("style.[hash].css", {
       allChunks: true,
-      disable: false,
+      disable: true, // CSS MODULES
     }),
     new HtmlWebpackPlugin({
       author: "Matthew Otto",
@@ -75,6 +86,16 @@ module.exports = validate({
     }),
   ],
   postcss: [
-    autoprefixer({ browsers: ['last 2 versions'] }),
+    autoprefixer({ browsers: ["last 2 versions"] }),
   ],
-})
+  resolve: {
+    root: path.resolve("./src"),
+    modulesDirectories: ["node_modules"],
+    extensions: ["", ".js", ".jsx", ".json"],
+  },
+  sassResources: [
+    path.join(__dirname, "public/css/_mixins.scss"),
+    path.join(__dirname, "public/css/_variables.scss"),
+    path.join(__dirname, "public/css/_resets.scss"),
+  ],
+}
