@@ -18,7 +18,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <header className={styles.header}>
-        <p>DataScience Code Test 2</p>
+        <p>DataScience Code Test</p>
 
         <div className={styles.spacer} />
 
